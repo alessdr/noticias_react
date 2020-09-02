@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { alertService } from '../resources/alert.service';
 import {API_URL} from '../resources/constants'
+import {ALERT_OPTIONS} from '../resources/constants'
 
 export default class Create extends Component {
   constructor(props) {
@@ -43,14 +45,16 @@ export default class Create extends Component {
 
     axios.post(API_URL, obj)
         .then(response => {
+          alertService.success('Notícia incluída com sucesso.', ALERT_OPTIONS)
           this.setState({ 
             title: '', 
             content: '',
             publish_date: '' 
-          });
+          })
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch(error => {
+            alertService.error('Erro incluindo a notícia.', ALERT_OPTIONS)
+            console.log(error)
         })
   }
  

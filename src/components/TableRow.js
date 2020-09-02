@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import axios from 'axios';
 
+import { alertService } from '../resources/alert.service';
 import {API_URL} from '../resources/constants'
+import {ALERT_OPTIONS} from '../resources/constants'
 
 class TableRow extends Component {
 
@@ -12,13 +14,15 @@ class TableRow extends Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-
-      console.log(this.props.obj)
-      console.log(this.props)
-
-        axios.delete(API_URL + '/' + this.props.obj.id)
-            .then(console.log('Deleted'))
-            .catch(err => console.log(err))
+      axios.delete(API_URL + '/' + this.props.obj.id)
+          .then(response => {
+            alertService.success('Notícia excluída com sucesso.', ALERT_OPTIONS)
+            console.log('Deleted')
+          })
+          .catch(err => {
+            alertService.error('Erro excluindo a notícia.', ALERT_OPTIONS)
+            console.log(err)
+          })
     }
   render() {
     return (

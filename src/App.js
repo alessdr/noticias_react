@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Create from './components/create.component';
 import Edit from './components/edit.component';
 import Index from './components/index.component';
+import { Alert } from './components/alert.component';
 
 import {APP_LOGO as LOGO} from './resources/constants'
-import {APP_BACKGROUND as BACKGROUND} from './resources/constants'
 
 class App extends Component {
   render() {
@@ -38,6 +38,8 @@ class App extends Component {
               </ul>
             </div>
           </nav> <br/>
+
+          <Alert />
           {/*
           <h2>Bem vindo ao cadastro de notícias</h2><br/>
           */}
