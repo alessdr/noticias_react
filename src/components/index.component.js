@@ -21,7 +21,7 @@ export default class Index extends Component {
     }
     tabRow(){
       return this.state.noticias.map(function(object, i){
-          return <TableRow obj={object} key={i} />;
+          return <TableRow obj={object} key={i}/>;
       });
     }
 

@@ -18,6 +18,7 @@ class TableRow extends Component {
           .then(response => {
             alertService.success('Notícia excluída com sucesso.', ALERT_OPTIONS)
             console.log('Deleted')
+            this.props.history.push('/index');
           })
           .catch(err => {
             alertService.error('Erro excluindo a notícia.', ALERT_OPTIONS)

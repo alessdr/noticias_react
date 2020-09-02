@@ -59,13 +59,12 @@ export default class Edit extends Component {
     axios.put(API_URL + '/' + this.props.match.params.id, obj)
         .then(res => {
           alertService.success('Notícia atualizada com sucesso.', ALERT_OPTIONS)
-          console.log(res.data)
+          console.log('Notícia atualizada com sucesso.', res.data)
+          this.props.history.push('/index');
         }).catch(error => {
           alertService.error('Erro atualizando a notícia.', ALERT_OPTIONS)
           console.log(error)
         })
-    
-    this.props.history.push('/index');
   }
  
   render() {
