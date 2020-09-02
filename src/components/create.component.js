@@ -63,28 +63,31 @@ export default class Create extends Component {
           <div style={{ marginTop: 10 }}>
               <h4>Nova Notícia</h4>
               <form onSubmit={this.onSubmit}>
-                  <div className="form-group">
-                      <label>Título:  </label>
+                  <div className="form-group required">
+                      <label className="control-label">Título</label>
                       <input 
                         type="text" 
                         className="form-control" 
+                        required="required"
                         value={this.state.title}
                         onChange={this.onChangetitle}
                         />
                   </div>
-                  <div className="form-group">
-                      <label>Conteúdo: </label>
+                  <div className="form-group required">
+                      <label className="control-label">Conteúdo</label>
                       <textarea
                         className="form-control"
+                        required="required"
                         value={this.state.content}
                         onChange={this.onChangeContent}
                         />
                   </div>
-                  <div className="form-group">
-                      <label>Data Publicação: </label>
+                  <div className="form-group required">
+                      <label className="control-label">Data Publicação</label>
                       <input type="date"
                         max="9999-12-31" 
                         className="form-control"
+                        required="required"
                         value={this.state.publish_date}
                         onChange={this.onChangePublished}
                         />

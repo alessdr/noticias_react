@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { alertService } from '../resources/alert.service';
 import {API_URL} from '../resources/constants'
+import {ALERT_OPTIONS} from '../resources/constants'
 
 export default class Edit extends Component {
   constructor(props) {
@@ -25,9 +27,9 @@ export default class Edit extends Component {
                 title: response.data.title, 
                 content: response.data.content,
                 publish_date: response.data.publish_date });
-          })
-          .catch(function (error) {
-              console.log(error);
+          }).catch(error => {
+            alertService.error('Erro carregando a notícia.', ALERT_OPTIONS)
+            console.log(error)
           })
   }
 
@@ -55,7 +57,13 @@ export default class Edit extends Component {
       publish_date: this.state.publish_date
     };
     axios.put(API_URL + '/' + this.props.match.params.id, obj)
-        .then(res => console.log(res.data));
+        .then(res => {
+          alertService.success('Notícia atualizada com sucesso.', ALERT_OPTIONS)
+          console.log(res.data)
+        }).catch(error => {
+          alertService.error('Erro atualizando a notícia.', ALERT_OPTIONS)
+          console.log(error)
+        })
     
     this.props.history.push('/index');
   }
@@ -65,28 +73,31 @@ export default class Edit extends Component {
         <div style={{ marginTop: 10 }}>
             <h3 align="center">Alterar Notícia</h3>
             <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                    <label>Título:  </label>
+                <div className="form-group required">
+                    <label className="control-label">Título</label>
                     <input 
                       type="text" 
-                      className="form-control" 
+                      className="form-control"
+                      required
                       value={this.state.title}
                       onChange={this.onChangeTitle}
                       />
                 </div>
-                <div className="form-group">
-                    <label>Conteúdo: </label>
+                <div className="form-group required">
+                    <label className="control-label">Conteúdo</label>
                     <textarea type="text" 
                       className="form-control"
+                      required
                       value={this.state.content}
                       onChange={this.onChangeContent}
                       />
                 </div>
-                <div className="form-group">
-                    <label>Data Publicação: </label>
+                <div className="form-group required">
+                    <label className="control-label">Data Publicação</label>
                     <input type="date"
                       max="9999-12-31" 
                       className="form-control"
+                      required
                       value={this.state.publish_date}
                       onChange={this.onChangePublishDate}
                       />
