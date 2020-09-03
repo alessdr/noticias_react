@@ -1,30 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
-import axios from 'axios';
-
-import { alertService } from '../resources/alert.service';
-import {API_URL} from '../resources/constants'
-import {ALERT_OPTIONS} from '../resources/constants'
 
 class TableRow extends Component {
 
-  constructor(props) {
-        super(props);
-        this.delete = this.delete.bind(this);
-    }
-    delete() {
-      axios.delete(API_URL + '/' + this.props.obj.id)
-          .then(response => {
-            alertService.success('Notícia excluída com sucesso.', ALERT_OPTIONS)
-            console.log('Deleted')
-            this.props.history.push('/index');
-          })
-          .catch(err => {
-            alertService.error('Erro excluindo a notícia.', ALERT_OPTIONS)
-            console.log(err)
-          })
-    }
   render() {
     return (
         <tr>
@@ -43,7 +22,7 @@ class TableRow extends Component {
             <Link to={"/edit/"+this.props.obj.id} className="btn btn-primary">Edit</Link>
           </td>
           <td>
-            <button onClick={this.delete} className="btn btn-danger">Delete</button>
+            <Link to={"/delete/"+this.props.obj.id} className="btn btn-danger">Delete</Link>
           </td>
         </tr>
     );

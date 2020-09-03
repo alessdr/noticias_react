@@ -4,7 +4,7 @@ import TableRow from './TableRow';
 
 import {API_URL} from '../resources/constants'
 
-export default class Index extends Component {
+export default class List extends Component {
 
   constructor(props) {
       super(props);

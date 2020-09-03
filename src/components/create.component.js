@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
 import axios from 'axios';
 
 import { alertService } from '../resources/alert.service';
@@ -16,7 +17,7 @@ export default class Create extends Component {
       this.state = {
           title: '',
           content: '',
-          publish_date:''
+          publish_date: new Date()
       }
   }
   onChangetitle(e) {
@@ -77,6 +78,7 @@ export default class Create extends Component {
                       <label className="control-label">Conteúdo</label>
                       <textarea
                         className="form-control"
+                        rows="4"
                         required="required"
                         value={this.state.content}
                         onChange={this.onChangeContent}
@@ -93,7 +95,17 @@ export default class Create extends Component {
                         />
                   </div>
                   <div className="form-group">
-                      <input type="submit" value="Salvar" className="btn btn-primary"/>
+                      <input type="submit" 
+                        value="Salvar" 
+                        className="btn btn-primary button-margin"/>
+                      <Route render={({ history}) => (
+                      <button
+                        type='button'
+                        onClick={() => { history.push('/') }}
+                        className="btn btn-outline-dark">
+                          Cancelar
+                      </button>
+                    )}/>
                   </div>
               </form>
           </div>

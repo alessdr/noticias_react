@@ -6,12 +6,9 @@ import { alertService } from '../resources/alert.service';
 import {API_URL} from '../resources/constants'
 import {ALERT_OPTIONS} from '../resources/constants'
 
-export default class Edit extends Component {
+export default class Delete extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeContent = this.onChangeContent.bind(this);
-    this.onChangePublishDate = this.onChangePublishDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -34,79 +31,57 @@ export default class Edit extends Component {
           })
   }
 
-  onChangeTitle(e) {
-    this.setState({
-      title: e.target.value
-    });
-  }
-  onChangeContent(e) {
-    this.setState({
-      content: e.target.value
-    })  
-  }
-  onChangePublishDate(e) {
-    this.setState({
-      publish_date: e.target.value
-    })
-  }
-
   onSubmit(e) {
     e.preventDefault();
-    const obj = {
-      title: this.state.title,
-      content: this.state.content,
-      publish_date: this.state.publish_date
-    };
-    axios.put(API_URL + '/' + this.props.match.params.id, obj)
-        .then(res => {
-          alertService.success('Notícia atualizada com sucesso.', ALERT_OPTIONS)
-          console.log('Notícia atualizada com sucesso.', res.data)
-          this.props.history.push('/list');
-        }).catch(error => {
-          alertService.error('Erro atualizando a notícia.', ALERT_OPTIONS)
-          console.log(error)
-        })
+    axios.delete(API_URL + '/' + this.props.match.params.id)
+          .then(response => {
+            alertService.success('Notícia excluída com sucesso.', ALERT_OPTIONS)
+            console.log('Deleted')
+            this.props.history.push('/list');
+          })
+          .catch(err => {
+            alertService.error('Erro excluindo a notícia.', ALERT_OPTIONS)
+            console.log(err)
+          })
   }
  
   render() {
     return (
         <div style={{ marginTop: 10 }}>
-            <h3 align="center">Alterar Notícia</h3>
+            <h3 align="center">Deletar Notícia</h3>
             <form onSubmit={this.onSubmit}>
-                <div className="form-group required">
-                    <label className="control-label">Título</label>
+                <div className="form-group">
+                    <label>Título</label>
                     <input 
                       type="text" 
+                      disabled
                       className="form-control"
-                      required
                       value={this.state.title}
-                      onChange={this.onChangeTitle}
-                      />
-                </div>
-                <div className="form-group required">
-                    <label className="control-label">Conteúdo</label>
-                    <textarea type="text" 
-                      className="form-control"
-                      rows="4"
-                      required
-                      value={this.state.content}
-                      onChange={this.onChangeContent}
-                      />
-                </div>
-                <div className="form-group required">
-                    <label className="control-label">Data Publicação</label>
-                    <input type="date"
-                      max="9999-12-31" 
-                      className="form-control"
-                      required
-                      value={this.state.publish_date}
-                      onChange={this.onChangePublishDate}
                       />
                 </div>
                 <div className="form-group">
-                    <input type="submit" 
-                      value="Salvar" 
-                      className="btn btn-primary button-margin"/>
+                    <label>Conteúdo</label>
+                    <textarea type="text" 
+                      disabled
+                      className="form-control"
+                      rows="4"
+                      value={this.state.content}
+                      />
+                </div>
+                <div className="form-group">
+                    <label>Data Publicação</label>
+                    <input type="date"
+                      disabled
+                      className="form-control"
+                      value={this.state.publish_date}
+                      />
+                </div>
+                <div className="form-group">
+                    <button 
+                      onClick={this.delete} 
+                      className="btn btn-danger button-margin">
+                        Confirmar
+                    </button>
                     <Route render={({ history}) => (
                       <button
                         type='button'

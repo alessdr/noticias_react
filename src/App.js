@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Create from './components/create.component';
 import Edit from './components/edit.component';
-import Index from './components/index.component';
+import Delete from './components/delete.component';
+import List from './components/list.component';
 import { Alert } from './components/alert.component';
 
 import {APP_LOGO as LOGO} from './resources/constants'
@@ -29,7 +30,7 @@ class App extends Component {
                   <Link to={'/create'} className="nav-link">Cadastrar</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={'/index'} className="nav-link">Listar</Link>
+                  <Link to={'/list'} className="nav-link">Listar</Link>
                 </li>
                 <li className="nav-item">
                   <button className="btn btn-outline-dark my-2 my-sm-0" type="button">Login</button>
@@ -40,13 +41,11 @@ class App extends Component {
           </nav> <br/>
 
           <Alert />
-          {/*
-          <h2>Bem vindo ao cadastro de notícias</h2><br/>
-          */}
           <Switch>
               <Route exact path='/create' component={ Create } />
               <Route path='/edit/:id' component={ Edit } />
-              <Route path='/index' component={ Index } />
+              <Route path='/delete/:id' component={ Delete } />
+              <Route path='/list' component={ List } />
           </Switch>
         </div>
       </Router>

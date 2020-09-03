@@ -8,3 +8,8 @@
   content: "*";
   position: absolute;
 }
+
+.button-margin {
+  margin-right: 10px;
+}
+
