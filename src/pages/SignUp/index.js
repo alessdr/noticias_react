@@ -5,7 +5,7 @@ import {USER_CREATE} from '../../resources/constants'
 
 import api from "../../services/api";
 
-import {ALERT_OPTIONS} from '../../resources/constants'
+import {ALERT_OPTIONS, ROTA_SIGN_IN} from '../../resources/constants'
 import { alertService } from '../../resources/alert.service';
 
 import { Form, Container } from "./styles";
@@ -25,7 +25,7 @@ class SignUp extends Component {
     } else {
       try {
         await api.post(USER_CREATE, { email, password });
-        this.props.history.push("/");
+        this.props.history.push(ROTA_SIGN_IN);
         alertService.success('Usuário criado com sucesso! Você ja pode logar.', ALERT_OPTIONS)
       } catch (err) {
         console.log(err);
@@ -52,7 +52,7 @@ class SignUp extends Component {
           />
           <button type="submit">Cadastrar grátis</button>
           <hr />
-          <Link to="/">Fazer login</Link>
+          <Link to={ROTA_SIGN_IN}>Fazer login</Link>
         </Form>
       </Container>
     );

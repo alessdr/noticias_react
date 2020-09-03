@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import TableRow from './TableRow';
+import TableRow from './table.row.component';
 
 import {API_URL} from '../resources/constants'
+
+import api from "../services/api";
 
 export default class List extends Component {
 
@@ -11,7 +12,7 @@ export default class List extends Component {
       this.state = {noticias: []};
     }
     componentDidMount(){
-      axios.get(API_URL)
+      api.get(API_URL)
         .then(response => {
           this.setState({ noticias: response.data });
         })

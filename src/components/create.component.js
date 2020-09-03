@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
-import axios from 'axios';
+
+import api from "../services/api";
 
 import { alertService } from '../resources/alert.service';
-import {API_URL} from '../resources/constants'
+import {API_URL, ROTA_HOME} from '../resources/constants'
 import {ALERT_OPTIONS} from '../resources/constants'
 
 export default class Create extends Component {
@@ -44,7 +45,7 @@ export default class Create extends Component {
       publish_date: this.state.publish_date
     };
 
-    axios.post(API_URL, obj)
+    api.post(API_URL, obj)
         .then(response => {
           alertService.success('Notícia incluída com sucesso.', ALERT_OPTIONS)
           this.setState({ 
@@ -101,7 +102,7 @@ export default class Create extends Component {
                       <Route render={({ history}) => (
                       <button
                         type='button'
-                        onClick={() => { history.push('/') }}
+                        onClick={() => { history.push(ROTA_HOME) }}
                         className="btn btn-outline-dark">
                           Cancelar
                       </button>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
-import axios from 'axios';
 
-import {API_URL} from '../resources/constants'
+import api from "../services/api";
+
+import {API_URL, ROTA_LIST} from '../resources/constants'
 import {ALERT_OPTIONS} from '../resources/constants'
 import { alertService } from '../resources/alert.service';
 
@@ -22,7 +23,7 @@ export default class Edit extends Component {
   }
 
   componentDidMount() {
-      axios.get(API_URL + '/' + this.props.match.params.id)
+        api.get(API_URL + '/' + this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 title: response.data.title, 
@@ -57,11 +58,11 @@ export default class Edit extends Component {
       content: this.state.content,
       publish_date: this.state.publish_date
     };
-    axios.put(API_URL + '/' + this.props.match.params.id, obj)
+    api.put(API_URL + '/' + this.props.match.params.id, obj)
         .then(res => {
           alertService.success('Notícia atualizada com sucesso.', ALERT_OPTIONS)
           console.log('Notícia atualizada com sucesso.', res.data)
-          this.props.history.push('/list');
+          this.props.history.push(ROTA_LIST);
         }).catch(error => {
           alertService.error('Erro atualizando a notícia.', ALERT_OPTIONS)
           console.log(error)
@@ -110,7 +111,7 @@ export default class Edit extends Component {
                     <Route render={({ history}) => (
                       <button
                         type='button'
-                        onClick={() => { history.push('/list') }}
+                        onClick={() => { history.push(ROTA_LIST) }}
                         className="btn btn-outline-dark">
                           Cancelar
                       </button>

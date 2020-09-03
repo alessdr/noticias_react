@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
-import axios from 'axios';
+
+import api from "../services/api";
 
 import { alertService } from '../resources/alert.service';
-import {API_URL} from '../resources/constants'
+import {API_URL, ROTA_LIST} from '../resources/constants'
 import {ALERT_OPTIONS} from '../resources/constants'
 
 export default class Delete extends Component {
@@ -19,7 +20,7 @@ export default class Delete extends Component {
   }
 
   componentDidMount() {
-      axios.get(API_URL + '/' + this.props.match.params.id)
+      api.get(API_URL + '/' + this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 title: response.data.title, 
@@ -33,11 +34,11 @@ export default class Delete extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    axios.delete(API_URL + '/' + this.props.match.params.id)
+    api.delete(API_URL + '/' + this.props.match.params.id)
           .then(response => {
             alertService.success('Notícia excluída com sucesso.', ALERT_OPTIONS)
             console.log('Deleted')
-            this.props.history.push('/list');
+            this.props.history.push(ROTA_LIST);
           })
           .catch(err => {
             alertService.error('Erro excluindo a notícia.', ALERT_OPTIONS)
@@ -85,7 +86,7 @@ export default class Delete extends Component {
                     <Route render={({ history}) => (
                       <button
                         type='button'
-                        onClick={() => { history.push('/list') }}
+                        onClick={() => { history.push(ROTA_LIST) }}
                         className="btn btn-outline-dark">
                           Cancelar
                       </button>

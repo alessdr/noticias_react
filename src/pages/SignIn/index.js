@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import {USER_LOGIN, ROTA_HOME} from '../../resources/constants'
+import {USER_LOGIN, ROTA_HOME, ROTA_SIGN_UP} from '../../resources/constants'
 
 import api from "../../services/api";
 import { login } from "../../services/auth";
@@ -52,7 +52,7 @@ class SignIn extends Component {
           />
           <button type="submit">Entrar</button>
           <hr />
-          <Link to="/signup">Criar conta grátis</Link>
+          <Link to={ROTA_SIGN_UP}>Criar conta grátis</Link>
         </Form>
       </Container>
     );
