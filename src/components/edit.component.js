@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 import axios from 'axios';
 
-import { alertService } from '../resources/alert.service';
 import {API_URL} from '../resources/constants'
 import {ALERT_OPTIONS} from '../resources/constants'
+import { alertService } from '../resources/alert.service';
 
 export default class Edit extends Component {
   constructor(props) {
